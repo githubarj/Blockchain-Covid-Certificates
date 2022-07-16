@@ -1,0 +1,15 @@
+{
+  "name": "blockchain-covid-certificates",
+  "version": "1.0.0",
+  "description": "",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "ganache": "ganache-cli -m \"void inflict sail case speak inject lift garden suspect bone cotton blush\"",
+    "test": "truffle test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
