@@ -115,7 +115,7 @@ contract ColdChain {
 
     function issueCertificate(
         address _issuer , address _prover, string memory _status,
-        uint vaccineBatchId, bytes memory signature) public returns(uint){
+        uint vaccinecBatchId, bytes memory signature) public returns(uint){
             Entity memory issuer = entities[_issuer];
             require (issuer.mode == Mode.ISSUER);
 
