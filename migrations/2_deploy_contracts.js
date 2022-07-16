@@ -1,6 +1,6 @@
 const ConvertLib = artifacts.require("ConvertLib");
-const Coldchain = artifacts.require("Coldchain");
+const ColdChain = artifacts.require("ColdChain");
 
 module.exports = function(deployer) {
-  deployer.deploy(Coldchain);
+  deployer.deploy(ColdChain);
 };

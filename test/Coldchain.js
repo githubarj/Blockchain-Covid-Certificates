@@ -1,40 +1,112 @@
-const MetaCoin = artifacts.require("MetaCoin");
+const { expectedEvent, BN } = reqiure("@openzeppelin/test-helpers");
+const HDWalletProvider = require("@truffle/hdwallet-provider");
+const Web3 = require("web3");
 
-contract('MetaCoin', (accounts) => {
-  it('should put 10000 MetaCoin in the first account', async () => {
-    const metaCoinInstance = await MetaCoin.deployed();
-    const balance = await metaCoinInstance.getBalance.call(accounts[0]);
+const ColdChain = artifacts.require("ColdChain");
 
-    assert.equal(balance.valueOf(), 10000, "10000 wasn't in the first account");
+contract("ColdChain", (accounts) => {
+  before(async () => {
+    this.owner = accounts[0];
+
+    this.VACCINE_BRANDS = {
+      Pfizer: "Pfizer-BioNTech",
+      Mordena: "Mordena",
+      Janssen: "Johnson & Johnson's Janssen",
+      Sputnik: "Sputnik V",
+    };
+
+    this.ModeEnums = {
+      ISSUER: { val: "ISSUER", pos: 0 },
+      VERIFIER: { val: "VERIFIER", pos: 1 },
+      PROVER: { val: "PROVER", pos: 2 },
+    };
+
+    this.StatusEnums = {
+      manufactured: { val: "MANUFACTURED", pos: 0 },
+      delivering1: { val: "DELIVERING_INTERNATIONAL", pos: 1 },
+      stored: { val: "STORED", pos: 2 },
+      delivering2: { val: "DELIVERING_LOCAL", pos: 3 },
+      delivered: { val: "PROVER", pos: 4 },
+    };
+
+    this.defaultEntities = {
+      manufacturerA: { id: accounts[1], mode: this.ModeEnums.PROVER.val },
+      manufacturerB: { id: accounts[2], mode: this.ModeEnums.PROVER.val },
+      inspector: { id: accounts[3], mode: this.ModeEnums.ISSUER.val },
+      distributorGlobal: { id: accounts[4], mode: this.ModeEnums.VERIFIER.val },
+      distributorLocal: { id: accounts[5], mode: this.ModeEnums.VERIFIER.val },
+      immunizer: { id: accounts[6], mode: this.ModeEnums.ISSUER.val },
+      traveller: { id: accounts[7], mode: this.ModeEnums.PROVER.val },
+      borderAgent: { id: accounts[8], mode: this.ModeEnums.VERIFIER.val },
+    };
+
+    this.defaultVaccineBatches = {
+      0: {
+        brand: this.VACCINE_BRANDS.Pfizer,
+        manufacturer: this.defaultEntities.manufacturerA.id,
+      },
+      1: {
+        brand: this.VACCINE_BRANDS.Mordena,
+        manufacturer: this.defaultEntities.manufacturerA.id,
+      },
+      2: {
+        brand: this.VACCINE_BRANDS.Janssen,
+        manufacturer: this.defaultEntities.manufacturerB.id,
+      },
+      3: {
+        brand: this.VACCINE_BRANDS.Sputnik,
+        manufacturer: this.defaultEntities.manufacturerB.id,
+      },
+      4: {
+        brand: this.VACCINE_BRANDS.Pfizer,
+        manufacturer: this.defaultEntities.manufacturerB.id,
+      },
+      5: {
+        brand: this.VACCINE_BRANDS.Pfizer,
+        manufacturer: this.defaultEntities.manufacturerA.id,
+      },
+      6: {
+        brand: this.VACCINE_BRANDS.Mordena,
+        manufacturer: this.defaultEntities.manufacturerA.id,
+      },
+      7: {
+        brand: this.VACCINE_BRANDS.Mordena,
+        manufacturer: this.defaultEntities.manufacturerB.id,
+      },
+      8: {
+        brand: this.VACCINE_BRANDS.Sputnik,
+        manufacturer: this.defaultEntities.manufacturerB.id,
+      },
+      9: {
+        brand: this.VACCINE_BRANDS.Janssen,
+        manufacturer: this.defaultEntities.manufacturerA.id,
+      },
+    };
+
+    this.coldchainInstance = await ColdChain.deployed();
+    this.providerOrUrl = "http://localhost:8545";
   });
-  it('should call a function that depends on a linked library', async () => {
-    const metaCoinInstance = await MetaCoin.deployed();
-    const metaCoinBalance = (await metaCoinInstance.getBalance.call(accounts[0])).toNumber();
-    const metaCoinEthBalance = (await metaCoinInstance.getBalanceInEth.call(accounts[0])).toNumber();
 
-    assert.equal(metaCoinEthBalance, 2 * metaCoinBalance, 'Library function returned unexpected function, linkage may be broken');
-  });
-  it('should send coin correctly', async () => {
-    const metaCoinInstance = await MetaCoin.deployed();
+  it("should add entities successfully", async () => {
+    for (const entity in this.defaultEntities) {
+      const { id, mode } = this.defaultEntities[entity];
 
-    // Setup 2 accounts.
-    const accountOne = accounts[0];
-    const accountTwo = accounts[1];
+      const result = await this.coldchainInstance.addEntity(id, mode, {
+        from: this.owner,
+      });
 
-    // Get initial balances of first and second account.
-    const accountOneStartingBalance = (await metaCoinInstance.getBalance.call(accountOne)).toNumber();
-    const accountTwoStartingBalance = (await metaCoinInstance.getBalance.call(accountTwo)).toNumber();
-
-    // Make transaction from first account to second.
-    const amount = 10;
-    await metaCoinInstance.sendCoin(accountTwo, amount, { from: accountOne });
-
-    // Get balances of first and second account after the transactions.
-    const accountOneEndingBalance = (await metaCoinInstance.getBalance.call(accountOne)).toNumber();
-    const accountTwoEndingBalance = (await metaCoinInstance.getBalance.call(accountTwo)).toNumber();
-
-
-    assert.equal(accountOneEndingBalance, accountOneStartingBalance - amount, "Amount wasn't correctly taken from the sender");
-    assert.equal(accountTwoEndingBalance, accountTwoStartingBalance + amount, "Amount wasn't correctly sent to the receiver");
+      console.log(result)
+      expectedEvent(result.receipt, "AddEntity", {
+        entityId: id,
+        entityMode: mode,
+      });
+    
+      break;
+      // assert.equal(
+      //   balance.valueOf(),
+      //   10000,
+      //   "10000 wasn't in the first account"
+      // );
+    }
   });
 });
