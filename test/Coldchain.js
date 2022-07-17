@@ -1,5 +1,4 @@
 const { expectEvent, BN } = require("@openzeppelin/test-helpers");
-const { web3 } = require("@openzeppelin/test-helpers/src/setup");
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 const Web3 = require("web3");
 
