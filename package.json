@@ -6,20 +6,12 @@
     "test": "test"
   },
   "scripts": {
-    "ganache": "void inflict sail case speak inject lift garden suspect bone cotton blush",
+    "ganache": "ganache-cli -m \"void inflict sail case speak inject lift garden suspect bone cotton blush\"",
     "test": "truffle test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/githubarj/Blockchain-Covid-Certificates.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/githubarj/Blockchain-Covid-Certificates/issues"
-  },
-  "homepage": "https://github.com/githubarj/Blockchain-Covid-Certificates#readme",
   "devDependencies": {
     "@openzeppelin/test-helpers": "^0.5.15",
     "@truffle/hdwallet-provider": "^2.0.11",
