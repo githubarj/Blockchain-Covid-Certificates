@@ -109,4 +109,5 @@ However, you can manual verify with:
 npx hardhat verify --constructor-args arguments.js DEPLOYED_CONTRACT_ADDRESS
 ```
 # Video submission 
-(https://drive.google.com/file/d/1dDAp9FjKWhGitiXhkamuV0F9GZyhZSqR/view?usp=sharing)
+An demo of the project is done in the video below
+https://drive.google.com/file/d/1dDAp9FjKWhGitiXhkamuV0F9GZyhZSqR/view?usp=sharing
