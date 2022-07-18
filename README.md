@@ -1,6 +1,6 @@
 # Blockchain Covid Vaccine Certifications
 
-This project aims to implement a system that solves a known problem of trust in the COVID-19 vaccine supply chain using blockchain technology
+This project aims to implement a system that solves a known problem of trust in the COVID-19 vaccine supply chain using blockchain technology.  Video demo at the end of the readme.
 
 # Team : Bro code {}
 
@@ -109,5 +109,5 @@ However, you can manual verify with:
 npx hardhat verify --constructor-args arguments.js DEPLOYED_CONTRACT_ADDRESS
 ```
 # Video submission 
-An demo of the project is done in the video below
+An demo of the project is done in the video below  
 https://drive.google.com/file/d/1dDAp9FjKWhGitiXhkamuV0F9GZyhZSqR/view?usp=sharing
