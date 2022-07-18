@@ -72,7 +72,7 @@ truffle test
 
 ## Deployment to a testnet or mainnet
 
-1. Switch yout git branche to hardhat
+1. Switch yout git branch to hardhat
 1. Setup environment variables
 
 You'll want to set your `RINKEBY_RPC_URL` and `PRIVATE_KEY` as environment variables. You can add them to a `.env` file, similar to what you see in `.env.example`.
