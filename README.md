@@ -1,104 +1,42 @@
-# Blockchain Covid Vaccine Certifications
+# Advanced Sample Hardhat Project
 
-This project aims to implement a system that solves a known problem of trust in the COVID-19 vaccine supply chain using blockchain technology
+This project demonstrates an advanced Hardhat use case, integrating other tools commonly used alongside Hardhat in the ecosystem.
 
-# Team : Bro code {}
+The project comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts. It also comes with a variety of other tools, preconfigured to work with the project code.
 
-## Members : 2
+Try running some of the following tasks:
 
-Richard Jeremy Githuba  
-Eddy Bogonko
-
-# Problem
-
-Vaccine certificates can be falsified and some vaccine certificates may not be recognized by destination countries.
-This affects the 3rd sustainable development goal that is good health and well being.
-
-# Languages and Frameworks
-
-Solidity  
-Truffle  
-JavaScript  
-Web3.js
-
-# Blockchain Protocol Used
-
-Ethereum
-
-# How to run the code
-
-## Requirements
-
-- [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-  - You'll know you did it right if you can run `git --version` and you see a response like `git version x.x.x`
-- [truffle](https://trufflesuite.com/tutorial/)
-  - You'll know you did it right if you can run `truffle version` and you see a response like
-    `truffle vx.x.x`
-- [Nodejs](https://nodejs.org/en/)
-  - You'll know you've installed nodejs right if you can run:
-    - `node --version` and get an output like: `vx.x.x`
-- [Yarn](https://yarnpkg.com/getting-started/install) instead of `npm`
-  - You'll know you've installed yarn right if you can run:
-    - `yarn --version` and get an output like: `x.x.x`
-    - You might need to [install it with `npm`](https://classic.yarnpkg.com/lang/en/docs/install/) or `corepack`
-
-## Quickstart
-
-```
-git clone https://github.com/githubarj/Blockchain-Covid-Certificates
-cd Blockchain-Covid-Certificates
-yarn
+```shell
+npx hardhat accounts
+npx hardhat compile
+npx hardhat clean
+npx hardhat test
+npx hardhat node
+npx hardhat help
+REPORT_GAS=true npx hardhat test
+npx hardhat coverage
+npx hardhat run scripts/deploy.js
+node scripts/deploy.js
+npx eslint '**/*.js'
+npx eslint '**/*.js' --fix
+npx prettier '**/*.{json,sol,md}' --check
+npx prettier '**/*.{json,sol,md}' --write
+npx solhint 'contracts/**/*.sol'
+npx solhint 'contracts/**/*.sol' --fix
 ```
 
-# Usage
+# Etherscan verification
 
-Run ganache server with the development account:
+To try out Etherscan verification, you first need to deploy a contract to an Ethereum network that's supported by Etherscan, such as Ropsten.
 
-```
-ganache -m "void inflict sail case speak inject lift garden suspect bone cotton blush"
-```
+In this project, copy the .env.example file to a file named .env, and then edit it to fill in the details. Enter your Etherscan API key, your Ropsten node URL (eg from Alchemy), and the private key of the account which will send the deployment transaction. With a valid .env file in place, first deploy your contract:
 
-Deploy: **in a different terminal**
-
-```
-truffle deploy
+```shell
+hardhat run --network ropsten scripts/deploy.js
 ```
 
-## Testing
+Then, copy the deployment address and paste it in to replace `DEPLOYED_CONTRACT_ADDRESS` in this command:
 
-```
-truffle test
-```
-
-## Deployment to a testnet or mainnet
-
-1. Switch yout git branch to hardhat
-1. Setup environment variables
-
-You'll want to set your `RINKEBY_RPC_URL` and `PRIVATE_KEY` as environment variables. You can add them to a `.env` file, similar to what you see in `.env.example`.
-
-- `PRIVATE_KEY`: The private key of your account (like from [metamask](https://metamask.io/)). **NOTE:** FOR DEVELOPMENT, PLEASE USE A KEY THAT DOESN'T HAVE ANY REAL FUNDS ASSOCIATED WITH IT.
-  - You can [learn how to export it here](https://metamask.zendesk.com/hc/en-us/articles/360015289632-How-to-Export-an-Account-Private-Key).
-- `RINKEBY_RPC_URL`: This is url of the rinkeby testnet node you're working with. You can get setup with one for free from [Alchemy](https://alchemy.com/?a=673c802981)
-
-2. Get testnet ETH
-
-Head over to [faucets.chain.link](https://faucets.chain.link/) and get some tesnet ETH. You should see the ETH show up in your metamask.
-
-3. Deploy
-
-```
-yarn hardhat run scripts/deploy.js --network rinkeby
-```
-
-### Verify on etherscan
-
-If you deploy to a testnet or mainnet, you can verify it if you get an [API Key](https://etherscan.io/myapikey) from Etherscan and set it as an environment variable named `ETHERSCAN_API_KEY`. You can pop it into your `.env` file as seen in the `.env.example`.
-
-In it's current state, if you have your api key set, it will auto verify rinkeby contracts!
-
-However, you can manual verify with:
-
-```
-npx hardhat verify --constructor-args arguments.js DEPLOYED_CONTRACT_ADDRESS
+```shell
+npx hardhat verify --network ropsten DEPLOYED_CONTRACT_ADDRESS "Hello, Hardhat!"
 ```
