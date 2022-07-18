@@ -16,9 +16,11 @@ This affects the 3rd sustainable development goal that is good health and well b
 
 # Languages and Frameworks
 
-Solidity  
+Solidity
+hardhat
 Truffle  
-JavaScript  
+JavaScript
+ethers.js
 Web3.js
 
 # Blockchain Protocol Used
