@@ -1,6 +1,6 @@
 # Blockchain Covid Vaccine Certifications
 
-This project aims to implement a system that solves a known problem of trust in the COVID-19 vaccine supply chain using blockchain technology.  Video demo at the end of the readme.
+This project aims to implement a system that solves a known problem of trust in the COVID-19 vaccine supply chain using blockchain technology.  Video demo at the end of the readme
 
 # Team : Bro code {}
 
